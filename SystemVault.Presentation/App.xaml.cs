@@ -33,7 +33,7 @@ public partial class App : Application
         mainWindow.Show();
     }
 
-    private void ConfigureServices(ServiceCollection serviceCollection)
+    private void ConfigureServices(IServiceCollection serviceCollection)
     {
         serviceCollection.AddDbContext<SystemVaultDbContext>(options =>
         {
