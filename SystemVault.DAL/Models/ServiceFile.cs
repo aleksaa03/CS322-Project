@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SystemVault.DAL.Models;
 
-[Table("File")]
-public class File : Base
+[Table("ServiceFile")]
+public class ServiceFile : Base
 {
     [Column(name: "Name", TypeName = "varchar")]
     [StringLength(100)]

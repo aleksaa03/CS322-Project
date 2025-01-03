@@ -12,8 +12,12 @@ public static class ServiceContainer
     public static void RegisterServices(IServiceCollection serviceCollection)
     {
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
+        serviceCollection.AddScoped<IServiceFileRepository, ServiceFileRepository>();
+        serviceCollection.AddScoped<ICategoryRepository, CategoryRepository>();
 
         serviceCollection.AddScoped<IUserService, UserService>();
+        serviceCollection.AddScoped<IServiceFileService, ServiceFileService>();
+        serviceCollection.AddScoped<ICategoryService, CategoryService>();
 
         serviceCollection.AddAutoMapper(typeof(MapProfiles));
     }

@@ -10,5 +10,5 @@ public class Category : Base
     [StringLength(50)]
     public required string Name { get; set; }
 
-    public virtual ICollection<File> Files { get; set; } = [];
+    public virtual ICollection<ServiceFile> Files { get; set; } = [];
 }
