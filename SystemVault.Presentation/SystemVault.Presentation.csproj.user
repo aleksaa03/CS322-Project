@@ -10,12 +10,18 @@
     <Compile Update="Views\UserControls\FileView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Windows\AddFileWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\UserControls\FileView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\AddFileWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

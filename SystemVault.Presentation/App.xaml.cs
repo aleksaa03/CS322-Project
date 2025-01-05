@@ -7,6 +7,8 @@ using System.Windows;
 using SystemVault.BLL;
 using SystemVault.DAL.Context;
 using SystemVault.Presentation.Views;
+using SystemVault.Presentation.Views.UserControls;
+using SystemVault.Presentation.Views.Windows;
 
 namespace SystemVault.Presentation;
 
@@ -25,6 +27,7 @@ public partial class App : Application
 
         var serviceCollection = new ServiceCollection();
         ConfigureServices(serviceCollection);
+        RegisterExceptionHandler();
 
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
@@ -55,5 +58,31 @@ public partial class App : Application
         ServiceContainer.RegisterServices(serviceCollection);
 
         serviceCollection.AddTransient(typeof(MainWindow));
+        serviceCollection.AddTransient(typeof(FileView));
+        serviceCollection.AddTransient(typeof(AddFileWindow));
+    }
+
+    private void RegisterExceptionHandler()
+    {
+        AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
+        {
+            HandleException((Exception)e.ExceptionObject);
+        };
+
+        DispatcherUnhandledException += (sender, e) =>
+        {
+            e.Handled = true;
+            HandleException(e.Exception);
+        };
+
+        TaskScheduler.UnobservedTaskException += (sender, e) =>
+        {
+            HandleException(e.Exception);
+        };
+    }
+
+    private void HandleException(Exception exception)
+    {
+        MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }

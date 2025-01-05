@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Windows;
 using System.Windows.Controls;
 using SystemVault.Presentation.Views.UserControls;
 
@@ -6,14 +7,18 @@ namespace SystemVault.Presentation.Views;
 
 public partial class MainWindow : Window
 {
-    public MainWindow()
+    private readonly IServiceProvider _serviceProvider;
+
+    public MainWindow(IServiceProvider serviceProvider)
     {
         InitializeComponent();
+        _serviceProvider = serviceProvider;
     }
 
     private void FileMenuItem_Click(object sender, RoutedEventArgs e)
     {
-        ChangeView(new FileView());
+        var fileView = _serviceProvider.GetRequiredService<FileView>();
+        ChangeView(fileView);
     }
 
     private void CategoriesMenuItem_Click(object sender, RoutedEventArgs e)
