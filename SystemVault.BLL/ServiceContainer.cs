@@ -18,6 +18,7 @@ public static class ServiceContainer
         serviceCollection.AddScoped<IUserService, UserService>();
         serviceCollection.AddScoped<IServiceFileService, ServiceFileService>();
         serviceCollection.AddScoped<ICategoryService, CategoryService>();
+        serviceCollection.AddScoped<ICryptoService, CryptoService>();
 
         serviceCollection.AddAutoMapper(typeof(MapProfiles));
     }
