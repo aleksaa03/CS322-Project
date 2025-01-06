@@ -3,5 +3,5 @@
 public sealed class ServiceFileSC : SCBase
 {
     public string? Name { get; set; }
-    public long? Size { get; set; }
+    public long? CategoryId { get; set; }
 }

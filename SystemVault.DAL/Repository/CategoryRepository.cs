@@ -9,4 +9,9 @@ public class CategoryRepository : GenericRepository<Category>, ICategoryReposito
     public CategoryRepository(SystemVaultDbContext dbContext) : base(dbContext)
     {
     }
+
+    public IQueryable<Category> GetAll()
+    {
+        return _dbSet.AsQueryable();
+    }
 }

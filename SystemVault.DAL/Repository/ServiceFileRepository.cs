@@ -15,12 +15,17 @@ public class ServiceFileRepository : GenericRepository<ServiceFile>, IServiceFil
     {
         var list = _dbSet.AsQueryable();
 
-        sc.PageCount = (int)Math.Ceiling((decimal)list.Count() / sc.PageSize);
-
         if (!string.IsNullOrEmpty(sc.Name))
         {
             list = list.Where(x => x.Name.Contains(sc.Name));
         }
+
+        if (sc.CategoryId != null)
+        {
+            list = list.Where(x => x.CategoryId == sc.CategoryId);
+        }
+
+        sc.PageCount = (int)Math.Ceiling((decimal)list.Count() / sc.PageSize);
 
         list = list.Skip((sc.Page - 1) * sc.PageSize).Take(sc.PageSize);
 

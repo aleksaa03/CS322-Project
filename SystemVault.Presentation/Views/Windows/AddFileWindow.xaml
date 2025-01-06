@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SystemVault.Presentation.Views.Windows"
         mc:Ignorable="d"
-        Title="AddFileWindow" Height="350" Width="400">
+        Title="AddFileWindow" Height="350" Width="400" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -23,7 +23,7 @@
             
             <StackPanel Grid.Row="0" HorizontalAlignment="Stretch">
                 <Label Padding="0">Name</Label>
-                <TextBox x:Name="txbName" />
+                <TextBox Name="txbName" Height="25" VerticalContentAlignment="Center" Style="{StaticResource MainTextBoxStyle}" />
             </StackPanel>
 
             <StackPanel Grid.Row="1" HorizontalAlignment="Stretch">
@@ -33,8 +33,8 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="txbPath" IsReadOnly="True" Grid.Column="0" />
-                    <Button Content="Browse..." Grid.Column="1" Margin="2,0,0,0" Click="BrowsePathButton_Click" />
+                    <TextBox x:Name="txbPath" IsReadOnly="True" Grid.Column="0" Height="25" VerticalContentAlignment="Center" Style="{StaticResource MainTextBoxStyle}" />
+                    <Button Content="Browse..." Grid.Column="1" Margin="2,0,0,0" Style="{StaticResource MainButtonStyle}" Click="BrowsePathButton_Click" />
                 </Grid>
             </StackPanel>
 
@@ -45,26 +45,26 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="txbFilepath" IsReadOnly="True" Grid.Column="0" />
-                    <Button Content="Browse..." Grid.Column="1" Margin="2,0,0,0" Click="BrowseFileButton_Click" />
+                    <TextBox x:Name="txbFilepath" IsReadOnly="True" Grid.Column="0" Height="25" VerticalContentAlignment="Center" Style="{StaticResource MainTextBoxStyle}" />
+                    <Button Content="Browse..." Grid.Column="1" Margin="2,0,0,0" Style="{StaticResource MainButtonStyle}" Click="BrowseFileButton_Click" />
                 </Grid>
             </StackPanel>
 
             <StackPanel Grid.Row="3" HorizontalAlignment="Stretch">
                 <Label Padding="0">Size (bytes)</Label>
-                <TextBox x:Name="txbSize" IsReadOnly="True" />
+                <TextBox x:Name="txbSize" IsReadOnly="True" Height="25" VerticalContentAlignment="Center" Style="{StaticResource MainTextBoxStyle}" />
             </StackPanel>
 
             <StackPanel Grid.Row="4" HorizontalAlignment="Stretch">
-                <Label Padding="0">CategoryId</Label>
-                <TextBox x:Name="txbCategoryId" /> 
+                <Label Padding="0">Category</Label>
+                <ComboBox x:Name="cmbCategoryId" Height="25" VerticalContentAlignment="Center" SelectedValuePath="Value" DisplayMemberPath="Key" Loaded="CategoryComboBox_Loaded"></ComboBox>
             </StackPanel>
         </Grid>
 
         <Grid Grid.Row="1">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
-                <Button Content="Save" Margin="5" Click="SaveButton_Click" />
-                <Button Content="Cancel" Margin="5" Click="CancelButton_Click" />
+                <Button Content="Save" Height="30" Width="70" Margin="5" Style="{StaticResource MainButtonStyle}" Click="SaveButton_Click" />
+                <Button Content="Cancel" Height="30" Width="70" Margin="5" Style="{StaticResource CancelButtonStyle}" Click="CancelButton_Click" />
             </StackPanel>
         </Grid>
     </Grid>

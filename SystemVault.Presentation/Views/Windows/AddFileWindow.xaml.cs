@@ -1,26 +1,30 @@
 ﻿using Microsoft.Win32;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using SystemVault.BLL.DTOs.ServiceFile;
 using SystemVault.BLL.Interfaces;
+using SystemVault.Presentation.Helpers;
 
 namespace SystemVault.Presentation.Views.Windows;
 
 public partial class AddFileWindow : Window
 {
     private readonly IServiceFileService _serviceFileService;
+    private readonly ICategoryService _categoryService;
 
-    public AddFileWindow(IServiceFileService serviceFileService)
+    public AddFileWindow(IServiceFileService serviceFileService, ICategoryService categoryService)
     {
         InitializeComponent();
         _serviceFileService = serviceFileService;
+        _categoryService = categoryService;
     }
 
     private async void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         string name = txbName.Text;
         string path = txbPath.Text;
-        int categoryId = Convert.ToInt32(txbCategoryId.Text);
+        int categoryId = Convert.ToInt32(((KeyValuePair<string, string>)cmbCategoryId.SelectedItem).Value);
 
         string filename = Path.GetFileName(txbFilepath.Text);
 
@@ -44,7 +48,7 @@ public partial class AddFileWindow : Window
         await _serviceFileService.CreateAsync(serviceFile);
         await _serviceFileService.SaveChangesAsync();
 
-        MessageBox.Show($"{name + Path.GetExtension(filename)} added succesfully!");
+        MessageBoxHelper.ShowInfo($"{name + Path.GetExtension(filename)} added succesfully!");
 
         Close();
     }
@@ -74,6 +78,23 @@ public partial class AddFileWindow : Window
 
             var fileInfo = new FileInfo(openFileDialog.FileName);
             txbSize.Text = fileInfo.Length.ToString();
+        }
+    }
+
+    private void CategoryComboBox_Loaded(object sender, RoutedEventArgs e)
+    {
+        var comboBox = sender as ComboBox;
+
+        if (comboBox == null)
+        {
+            return;
+        }
+
+        var categories = _categoryService.GetAll();
+
+        foreach (var item in categories)
+        {
+            comboBox.Items.Add(new KeyValuePair<string, string>(item.Name, item.Id.ToString()));
         }
     }
 }
