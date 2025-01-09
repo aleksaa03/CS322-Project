@@ -37,4 +37,14 @@ public static class MessageBoxHelper
 
         MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Error);
     }
+
+    public static MessageBoxResult ShowYesNo(string message, string? caption = null)
+    {
+        if (string.IsNullOrEmpty(caption))
+        {
+            caption = _warningCaption;
+        }
+
+        return MessageBox.Show(message, caption, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+    }
 }

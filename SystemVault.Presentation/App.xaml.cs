@@ -8,7 +8,7 @@ using SystemVault.BLL;
 using SystemVault.DAL.Context;
 using SystemVault.Presentation.Views;
 using SystemVault.Presentation.Views.UserControls;
-using SystemVault.Presentation.Views.Windows;
+using SystemVault.Presentation.Views.Windows.ServiceFile;
 
 namespace SystemVault.Presentation;
 
@@ -58,8 +58,11 @@ public partial class App : Application
         ServiceContainer.RegisterServices(serviceCollection);
 
         serviceCollection.AddTransient(typeof(MainWindow));
+
         serviceCollection.AddTransient(typeof(FileView));
         serviceCollection.AddTransient(typeof(AddFileWindow));
+
+        serviceCollection.AddTransient(typeof(CategoryView));
     }
 
     private void RegisterExceptionHandler()

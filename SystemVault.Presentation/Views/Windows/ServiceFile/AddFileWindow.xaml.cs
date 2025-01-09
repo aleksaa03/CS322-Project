@@ -6,34 +6,37 @@ using SystemVault.BLL.DTOs.ServiceFile;
 using SystemVault.BLL.Interfaces;
 using SystemVault.Presentation.Helpers;
 
-namespace SystemVault.Presentation.Views.Windows;
+namespace SystemVault.Presentation.Views.Windows.ServiceFile;
 
 public partial class AddFileWindow : Window
 {
     private readonly IServiceFileService _serviceFileService;
     private readonly ICategoryService _categoryService;
+    private readonly ICryptoService _cryptoService;
 
-    public AddFileWindow(IServiceFileService serviceFileService, ICategoryService categoryService)
+    public AddFileWindow(IServiceFileService serviceFileService, ICategoryService categoryService, ICryptoService cryptoService)
     {
         InitializeComponent();
         _serviceFileService = serviceFileService;
         _categoryService = categoryService;
+        _cryptoService = cryptoService;
     }
 
     private async void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         string name = txbName.Text;
-        string path = txbPath.Text;
+        string dirDestinationPath = txbDestinationPath.Text;
         int categoryId = Convert.ToInt32(((KeyValuePair<string, string>)cmbCategoryId.SelectedItem).Value);
 
-        string filename = Path.GetFileName(txbFilepath.Text);
+        string sourceFilePath = txbSourceFile.Text;
+        string sourceFilename = Path.GetFileName(sourceFilePath);
 
         if (string.IsNullOrEmpty(name))
         {
-            name = filename;
+            name = sourceFilename;
         }
 
-        string destinationPath = Path.Combine(path, name + Path.GetExtension(filename));
+        string destinationPath = Path.Combine(dirDestinationPath, name + Path.GetExtension(sourceFilename));
 
         var serviceFile = new ServiceFileDto
         {
@@ -43,12 +46,12 @@ public partial class AddFileWindow : Window
             Size = Convert.ToInt64(txbSize.Text)
         };
 
-        File.Copy(txbFilepath.Text, destinationPath, true);
+        _cryptoService.EncryptFile(sourceFilePath, destinationPath, "test123");
 
         await _serviceFileService.CreateAsync(serviceFile);
         await _serviceFileService.SaveChangesAsync();
 
-        MessageBoxHelper.ShowInfo($"{name + Path.GetExtension(filename)} added succesfully!");
+        MessageBoxHelper.ShowInfo($"{name + Path.GetExtension(sourceFilename)} added succesfully!");
 
         Close();
     }
@@ -64,7 +67,7 @@ public partial class AddFileWindow : Window
 
         if (openFolderDialog.ShowDialog() == true)
         {
-            txbPath.Text = openFolderDialog.FolderName;
+            txbDestinationPath.Text = openFolderDialog.FolderName;
         }
     }
 
@@ -74,7 +77,7 @@ public partial class AddFileWindow : Window
 
         if (openFileDialog.ShowDialog() == true)
         {
-            txbFilepath.Text = openFileDialog.FileName;
+            txbSourceFile.Text = openFileDialog.FileName;
 
             var fileInfo = new FileInfo(openFileDialog.FileName);
             txbSize.Text = fileInfo.Length.ToString();

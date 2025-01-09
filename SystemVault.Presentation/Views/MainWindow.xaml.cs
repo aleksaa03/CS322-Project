@@ -23,7 +23,8 @@ public partial class MainWindow : Window
 
     private void CategoriesMenuItem_Click(object sender, RoutedEventArgs e)
     {
-
+        var view = _serviceProvider.GetRequiredService<CategoryView>();
+        ChangeView(view);
     }
 
     private void UsersMenuItem_Click(object sender, RoutedEventArgs e)
