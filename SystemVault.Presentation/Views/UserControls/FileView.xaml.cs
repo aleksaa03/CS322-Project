@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using SystemVault.BLL.Common;
 using SystemVault.BLL.DTOs.ServiceFile;
 using SystemVault.BLL.Interfaces;
 using SystemVault.DAL.Models.SearchCriteria;
@@ -22,6 +23,7 @@ public partial class FileView : UserControl
     public FileView(IServiceProvider serviceProvider, IServiceFileService serviceFileService, ICategoryService categoryService, ICryptoService cryptoService)
     {
         InitializeComponent();
+
         _serviceProvider = serviceProvider;
 
         _serviceFileService = serviceFileService;
@@ -137,7 +139,7 @@ public partial class FileView : UserControl
         var outputFilename = Path.GetFileName(selectedFile.Path);
         var desktopPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), outputFilename);
 
-        _cryptoService.DecryptFile(selectedFile.Path, desktopPath, "test123");
+        _cryptoService.DecryptFile(selectedFile.Path, desktopPath, AppSettings.EncryptionKey);
 
         MessageBoxHelper.ShowInfo($"{selectedFile.Name} succesfully decrypted!");
     }

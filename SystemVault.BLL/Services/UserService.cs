@@ -22,4 +22,16 @@ public class UserService : GenericService<User, UserDto, IUserRepository>, IUser
         var user = await _userRepository.GetByUsernameAsync(username);
         return _mapper.Map<UserDto?>(user);
     }
+
+    public async Task<UserDto?> LoginUserAsync(string username, string password)
+    {
+        var user = await _userRepository.GetByUsernameAsync(username);
+
+        if (user == null || user.Password != password) 
+        {
+            return null;
+        }
+
+        return _mapper.Map<UserDto?>(user);
+    }
 }

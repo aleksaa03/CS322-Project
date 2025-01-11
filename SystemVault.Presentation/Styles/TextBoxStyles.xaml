@@ -4,4 +4,9 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="#E0E0E0" />
     </Style>
+
+    <Style x:Key="MainPasswordBoxStyle" TargetType="PasswordBox">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="#E0E0E0" />
+    </Style>
 </ResourceDictionary>

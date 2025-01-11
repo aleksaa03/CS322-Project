@@ -1,7 +1,9 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Win32;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using SystemVault.BLL.Common;
 using SystemVault.BLL.DTOs.ServiceFile;
 using SystemVault.BLL.Interfaces;
 using SystemVault.Presentation.Helpers;
@@ -13,19 +15,28 @@ public partial class AddFileWindow : Window
     private readonly IServiceFileService _serviceFileService;
     private readonly ICategoryService _categoryService;
     private readonly ICryptoService _cryptoService;
+    private IConfiguration _configuration { get; set; }
 
-    public AddFileWindow(IServiceFileService serviceFileService, ICategoryService categoryService, ICryptoService cryptoService)
+    public AddFileWindow(IServiceFileService serviceFileService, ICategoryService categoryService, ICryptoService cryptoService, IConfiguration configuration)
     {
         InitializeComponent();
         _serviceFileService = serviceFileService;
         _categoryService = categoryService;
         _cryptoService = cryptoService;
+        _configuration = configuration;
     }
 
     private async void SaveButton_Click(object sender, RoutedEventArgs e)
     {
+        string? dirDestinationPath = _configuration.GetSection("VaultLocation").Value;
+
+        if (string.IsNullOrEmpty(dirDestinationPath))
+        {
+            throw new Exception("Vault location is not defined.");
+        }
+
         string name = txbName.Text;
-        string dirDestinationPath = txbDestinationPath.Text;
+        
         int categoryId = Convert.ToInt32(((KeyValuePair<string, string>)cmbCategoryId.SelectedItem).Value);
 
         string sourceFilePath = txbSourceFile.Text;
@@ -46,7 +57,7 @@ public partial class AddFileWindow : Window
             Size = Convert.ToInt64(txbSize.Text)
         };
 
-        _cryptoService.EncryptFile(sourceFilePath, destinationPath, "test123");
+        _cryptoService.EncryptFile(sourceFilePath, destinationPath, AppSettings.EncryptionKey);
 
         await _serviceFileService.CreateAsync(serviceFile);
         await _serviceFileService.SaveChangesAsync();
@@ -59,16 +70,6 @@ public partial class AddFileWindow : Window
     private void CancelButton_Click(object sender, RoutedEventArgs e)
     {
         Close();
-    }
-
-    private void BrowsePathButton_Click(object sender, RoutedEventArgs e)
-    {
-        var openFolderDialog = new OpenFolderDialog();
-
-        if (openFolderDialog.ShowDialog() == true)
-        {
-            txbDestinationPath.Text = openFolderDialog.FolderName;
-        }
     }
 
     private void BrowseFileButton_Click(object sender, RoutedEventArgs e)

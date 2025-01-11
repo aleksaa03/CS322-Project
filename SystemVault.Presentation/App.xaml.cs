@@ -6,8 +6,10 @@ using System.Text;
 using System.Windows;
 using SystemVault.BLL;
 using SystemVault.DAL.Context;
+using SystemVault.Presentation.Helpers;
 using SystemVault.Presentation.Views;
 using SystemVault.Presentation.Views.UserControls;
+using SystemVault.Presentation.Views.Windows.Category;
 using SystemVault.Presentation.Views.Windows.ServiceFile;
 
 namespace SystemVault.Presentation;
@@ -55,14 +57,18 @@ public partial class App : Application
             });
         });
 
+        serviceCollection.AddSingleton(Configuration);
+
         ServiceContainer.RegisterServices(serviceCollection);
 
         serviceCollection.AddTransient(typeof(MainWindow));
+        serviceCollection.AddTransient(typeof(LoginView));
 
         serviceCollection.AddTransient(typeof(FileView));
         serviceCollection.AddTransient(typeof(AddFileWindow));
 
         serviceCollection.AddTransient(typeof(CategoryView));
+        serviceCollection.AddTransient(typeof(AddCategoryWindow));
     }
 
     private void RegisterExceptionHandler()
@@ -86,6 +92,6 @@ public partial class App : Application
 
     private void HandleException(Exception exception)
     {
-        MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        MessageBoxHelper.ShowError(exception.Message);
     }
 }

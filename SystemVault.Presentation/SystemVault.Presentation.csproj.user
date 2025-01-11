@@ -13,6 +13,12 @@
     <Compile Update="Views\UserControls\FileView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\UserControls\LoginView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\Category\AddCategoryWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Windows\ServiceFile\AddFileWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -31,6 +37,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\UserControls\FileView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\UserControls\LoginView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\Category\AddCategoryWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Windows\ServiceFile\AddFileWindow.xaml">

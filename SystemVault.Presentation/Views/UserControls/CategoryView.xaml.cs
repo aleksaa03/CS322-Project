@@ -1,9 +1,11 @@
-﻿using System.Windows;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Windows;
 using System.Windows.Controls;
 using SystemVault.BLL.DTOs.Category;
 using SystemVault.BLL.Interfaces;
 using SystemVault.DAL.Models.SearchCriteria;
 using SystemVault.Presentation.Helpers;
+using SystemVault.Presentation.Views.Windows.Category;
 
 namespace SystemVault.Presentation.Views.UserControls;
 
@@ -70,15 +72,30 @@ public partial class CategoryView : UserControl
 
     private void AddCategoryButton_Click(object sender, RoutedEventArgs e)
     {
-
+        var window = _serviceProvider.GetRequiredService<AddCategoryWindow>();
+        window.OnSubmit += (s, e) =>
+        {
+            Search(_sc);
+        };
+        window.ShowDialog();
     }
 
-    private void CategoryEdit_Click(object sender, RoutedEventArgs e)
+    private void EditCategoryButton_Click(object sender, RoutedEventArgs e)
     {
+        var button = sender as Button;
+        var selectedItem = button?.CommandParameter as CategoryDto;
 
+        var window = _serviceProvider.GetRequiredService<AddCategoryWindow>();
+        window.Category = selectedItem;
+        window.OnSubmit += (s, e) =>
+        {
+            Search(_sc);
+        };
+
+        window.ShowDialog();
     }
 
-    private async void CategoryDelete_Click(object sender, RoutedEventArgs e)
+    private async void DeleteCategoryButton_Click(object sender, RoutedEventArgs e)
     {
         var button = sender as Button;
         var selectedItem = button?.CommandParameter as CategoryDto;

@@ -27,6 +27,14 @@ public abstract class GenericRepository<T> : IGenericRepository<T> where T : Bas
     }
     public void Update(T entity)
     {
+        var trackedEntity = _dbContext.ChangeTracker.Entries<T>()
+                                      .FirstOrDefault(e => e.Entity.Id == entity.Id);
+
+        if (trackedEntity != null)
+        {
+            trackedEntity.State = EntityState.Detached;
+        }
+
         _dbSet.Update(entity);
     }
 

@@ -68,14 +68,14 @@
                     <DataGridTemplateColumn Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Edit" Click="CategoryEdit_Click" Height="30" Width="Auto" CommandParameter="{Binding}" Style="{StaticResource MainButtonStyle}" />
+                                <Button Content="Edit" Click="EditCategoryButton_Click" Height="30" Width="Auto" CommandParameter="{Binding}" Style="{StaticResource MainButtonStyle}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Delete" Click="CategoryDelete_Click" Height="30" Width="Auto" CommandParameter="{Binding}" Style="{StaticResource MainButtonStyle}" />
+                                <Button Content="Delete" Click="DeleteCategoryButton_Click" Height="30" Width="Auto" CommandParameter="{Binding}" Style="{StaticResource MainButtonStyle}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

@@ -20,6 +20,11 @@ public static class ServiceContainer
         serviceCollection.AddScoped<ICategoryService, CategoryService>();
         serviceCollection.AddScoped<ICryptoService, CryptoService>();
 
+        if (OperatingSystem.IsWindows())
+        {
+            serviceCollection.AddScoped<IRegistryService, RegistryService>();
+        }
+
         serviceCollection.AddAutoMapper(typeof(MapProfiles));
     }
 }

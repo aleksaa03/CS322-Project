@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SystemVault.Presentation.Views.Windows.ServiceFile"
         mc:Ignorable="d"
-        Title="AddFileWindow" Height="350" Width="400" WindowStartupLocation="CenterScreen">
+        Title="AddFileWindow" Height="300" Width="400" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -18,27 +18,14 @@
                 <RowDefinition Height="50" />
                 <RowDefinition Height="50" />
                 <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
             </Grid.RowDefinitions>
-            
+
             <StackPanel Grid.Row="0" HorizontalAlignment="Stretch">
                 <Label Padding="0">Filename</Label>
                 <TextBox Name="txbName" Height="25" VerticalContentAlignment="Center" Style="{StaticResource MainTextBoxStyle}" />
             </StackPanel>
 
             <StackPanel Grid.Row="1" HorizontalAlignment="Stretch">
-                <Label Padding="0">Destination path</Label>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="txbDestinationPath" IsReadOnly="True" Grid.Column="0" Height="25" VerticalContentAlignment="Center" Style="{StaticResource MainTextBoxStyle}" />
-                    <Button Content="Browse..." Grid.Column="1" Margin="2,0,0,0" Style="{StaticResource MainButtonStyle}" Click="BrowsePathButton_Click" />
-                </Grid>
-            </StackPanel>
-
-            <StackPanel Grid.Row="2" HorizontalAlignment="Stretch">
                 <Label Padding="0">Source file</Label>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -50,12 +37,12 @@
                 </Grid>
             </StackPanel>
 
-            <StackPanel Grid.Row="3" HorizontalAlignment="Stretch">
+            <StackPanel Grid.Row="2" HorizontalAlignment="Stretch">
                 <Label Padding="0">Size (bytes)</Label>
                 <TextBox x:Name="txbSize" IsReadOnly="True" Height="25" VerticalContentAlignment="Center" Style="{StaticResource MainTextBoxStyle}" />
             </StackPanel>
 
-            <StackPanel Grid.Row="4" HorizontalAlignment="Stretch">
+            <StackPanel Grid.Row="3" HorizontalAlignment="Stretch">
                 <Label Padding="0">Category</Label>
                 <ComboBox x:Name="cmbCategoryId" Height="25" VerticalContentAlignment="Center" SelectedValuePath="Value" DisplayMemberPath="Key" Loaded="CategoryComboBox_Loaded"></ComboBox>
             </StackPanel>
