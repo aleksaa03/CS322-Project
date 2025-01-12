@@ -81,6 +81,11 @@ public partial class FileView : UserControl
     private void AddServiceFileButton_Click(object sender, System.Windows.RoutedEventArgs e)
     {
         var addFileWindow = _serviceProvider.GetRequiredService<AddFileWindow>();
+        addFileWindow.OnSubmit += (s, e) =>
+        {
+            Search(_serviceFileSC);
+        };
+
         addFileWindow.ShowDialog();
     }
 

@@ -17,6 +17,8 @@ public partial class AddFileWindow : Window
     private readonly ICryptoService _cryptoService;
     private IConfiguration _configuration { get; set; }
 
+    public event EventHandler? OnSubmit;
+
     public AddFileWindow(IServiceFileService serviceFileService, ICategoryService categoryService, ICryptoService cryptoService, IConfiguration configuration)
     {
         InitializeComponent();
@@ -62,9 +64,10 @@ public partial class AddFileWindow : Window
         await _serviceFileService.CreateAsync(serviceFile);
         await _serviceFileService.SaveChangesAsync();
 
-        MessageBoxHelper.ShowInfo($"{name + Path.GetExtension(sourceFilename)} added succesfully!");
-
+        OnSubmit?.Invoke(this, EventArgs.Empty);
         Close();
+
+        MessageBoxHelper.ShowInfo($"{name + Path.GetExtension(sourceFilename)} added succesfully!");
     }
 
     private void CancelButton_Click(object sender, RoutedEventArgs e)

@@ -3,6 +3,7 @@ using SystemVault.BLL.DTOs;
 using SystemVault.BLL.Interfaces;
 using SystemVault.DAL.Interfaces;
 using SystemVault.DAL.Models;
+using SystemVault.DAL.Models.SearchCriteria;
 
 namespace SystemVault.BLL.Services;
 
@@ -33,5 +34,11 @@ public class UserService : GenericService<User, UserDto, IUserRepository>, IUser
         }
 
         return _mapper.Map<UserDto?>(user);
+    }
+
+    public IQueryable<UserDto> Filter(UserSC sc)
+    {
+        var list = _userRepository.Filter(sc);
+        return _mapper.ProjectTo<UserDto>(list);
     }
 }

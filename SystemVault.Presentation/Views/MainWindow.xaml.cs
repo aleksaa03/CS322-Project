@@ -89,7 +89,8 @@ public partial class MainWindow : Window
 
     private void UsersMenuItem_Click(object sender, RoutedEventArgs e)
     {
-
+        var view = _serviceProvider.GetRequiredService<UserView>();
+        ChangeView(view);
     }
 
     private void LogoutMenuItem_Click(object sender, RoutedEventArgs e)

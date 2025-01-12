@@ -69,6 +69,8 @@ public partial class App : Application
 
         serviceCollection.AddTransient(typeof(CategoryView));
         serviceCollection.AddTransient(typeof(AddCategoryWindow));
+
+        serviceCollection.AddTransient(typeof(UserView));
     }
 
     private void RegisterExceptionHandler()
