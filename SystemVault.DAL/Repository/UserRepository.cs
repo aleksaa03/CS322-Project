@@ -19,11 +19,16 @@ public class UserRepository : GenericRepository<User>, IUserRepository
 
     public IQueryable<User> Filter(UserSC sc)
     {
-        var list = _dbSet.AsQueryable();
+        var list = _dbSet.OrderByDescending(x => x.Id).AsQueryable();
 
         if (!string.IsNullOrEmpty(sc.Username))
         {
             list = list.Where(x => x.Username.Contains(sc.Username));
+        }
+
+        if (sc.RoleId != null) 
+        {
+            list = list.Where(x => x.RoleId == sc.RoleId);    
         }
 
         sc.PageCount = (int)Math.Ceiling((decimal)list.Count() / sc.PageSize);

@@ -13,7 +13,7 @@ public class ServiceFileRepository : GenericRepository<ServiceFile>, IServiceFil
 
     public IQueryable<ServiceFile> Filter(ServiceFileSC sc)
     {
-        var list = _dbSet.AsQueryable();
+        var list = _dbSet.OrderByDescending(x => x.CreatedAt).AsQueryable();
 
         if (!string.IsNullOrEmpty(sc.Name))
         {

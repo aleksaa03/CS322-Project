@@ -3,8 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using SystemVault.BLL.Events;
 using SystemVault.BLL.Interfaces;
-using SystemVault.BLL.Services;
 using SystemVault.Presentation.Views.UserControls;
+using SystemVault.DAL.Common;
+using SystemVault.BLL.Common;
 
 namespace SystemVault.Presentation.Views;
 
@@ -24,6 +25,15 @@ public partial class MainWindow : Window
             if (e.IsUserLoggedIn)
             {
                 mnuMain.Visibility = Visibility.Visible;
+
+                if (UserSession.CurrentUser?.RoleId != UserRole.Admin)
+                {
+                    mniUsers.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    mniUsers.Visibility = Visibility.Visible;
+                }
 
                 var fileView = _serviceProvider.GetRequiredService<FileView>();
                 ChangeView(fileView);

@@ -18,7 +18,7 @@ public class CategoryRepository : GenericRepository<Category>, ICategoryReposito
 
     public IQueryable<Category> Filter(CategorySC sc)
     {
-        var list = _dbSet.AsQueryable();
+        var list = _dbSet.OrderByDescending(x => x.Id).AsQueryable();
 
         if (!string.IsNullOrEmpty(sc.Name))
         {

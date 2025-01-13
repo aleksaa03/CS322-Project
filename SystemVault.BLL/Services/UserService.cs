@@ -30,7 +30,7 @@ public class UserService : GenericService<User, UserDto, IUserRepository>, IUser
 
         if (user == null || user.Password != password) 
         {
-            return null;
+            throw new Exception("User don't exist in the system.");
         }
 
         return _mapper.Map<UserDto?>(user);

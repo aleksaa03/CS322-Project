@@ -35,6 +35,11 @@
                     <TextBox Name="txbUsername" Height="25" VerticalContentAlignment="Center" Style="{StaticResource MainTextBoxStyle}" />
                 </StackPanel>
 
+                <StackPanel Grid.Column="1" Margin="10">
+                    <Label Padding="0">Category</Label>
+                    <ComboBox x:Name="cmbUserRole" Height="25" VerticalContentAlignment="Center" SelectedValuePath="Value" DisplayMemberPath="Key"></ComboBox>
+                </StackPanel>
+
             </Grid>
 
             <Grid Grid.Column="1">
@@ -65,6 +70,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Width="*" Binding="{Binding Id}" />
                     <DataGridTextColumn Header="Username" Width="*" Binding="{Binding Username}" />
+                    <DataGridTextColumn Header="Role" Width="*" Binding="{Binding RoleId}" />
                     <DataGridTemplateColumn Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

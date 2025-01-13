@@ -92,6 +92,7 @@ public partial class FileView : UserControl
     private void SearchButton_Click(object sender, System.Windows.RoutedEventArgs e)
     {
         _serviceFileSC.Name = txbName.Text;
+        _serviceFileSC.CategoryId = Convert.ToInt32(((KeyValuePair<string, string>)cmbCategoryId.SelectedItem).Value);
         Search(_serviceFileSC);
     }
 

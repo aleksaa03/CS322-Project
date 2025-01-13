@@ -15,7 +15,7 @@
         <Menu x:Name="mnuMain" Grid.Row="0">
             <MenuItem Click="FileMenuItem_Click" Header="Files"></MenuItem>
             <MenuItem Click="CategoriesMenuItem_Click" Header="Categories"></MenuItem>
-            <MenuItem Click="UsersMenuItem_Click" Header="Users"></MenuItem>
+            <MenuItem x:Name="mniUsers" Click="UsersMenuItem_Click" Header="Users"></MenuItem>
             <MenuItem Click="LogoutMenuItem_Click" Header="Logout"></MenuItem>
         </Menu>
 

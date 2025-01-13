@@ -1,6 +1,6 @@
 ﻿using SystemVault.BLL.DTOs;
 
-namespace SystemVault.BLL.Services;
+namespace SystemVault.BLL.Common;
 
 public static class UserSession
 {

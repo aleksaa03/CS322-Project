@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using SystemVault.BLL.Common;
 using SystemVault.BLL.Events;
 using SystemVault.BLL.Interfaces;
-using SystemVault.BLL.Services;
 
 namespace SystemVault.Presentation.Views.UserControls;
 
@@ -37,11 +37,6 @@ public partial class LoginView : UserControl
         string password = pwbPassword.Password;
 
         var user = await _userService.LoginUserAsync(username, password);
-
-        if (user == null)
-        {
-            return;
-        }
 
         UserSession.CurrentUser = user;
         UserSessonChangedEvent.OnUserSessionChanged(true);

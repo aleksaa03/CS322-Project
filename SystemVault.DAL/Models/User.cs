@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using SystemVault.DAL.Common;
 
 namespace SystemVault.DAL.Models;
 
@@ -12,4 +13,7 @@ public class User : Base
 
     [Column(name: "Password", TypeName = "text")]
     public required string Password { get; set; }
+
+    [Column(name: "RoleId", TypeName = "smallint")]
+    public required UserRole RoleId { get; set; }
 }
