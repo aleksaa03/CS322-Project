@@ -1,22 +1,29 @@
-﻿using System.Windows;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Windows;
 using System.Windows.Controls;
+using SystemVault.BLL.DTOs;
 using SystemVault.BLL.Interfaces;
 using SystemVault.DAL.Common;
 using SystemVault.DAL.Models.SearchCriteria;
+using SystemVault.Presentation.Helpers;
+using SystemVault.Presentation.Views.Windows.User;
 
 namespace SystemVault.Presentation.Views.UserControls;
 
 public partial class UserView : UserControl
 {
+    private readonly IServiceProvider _serviceProvider;
+
     private readonly IUserService _userService;
 
     private UserSC _sc;
 
-    public UserView(IUserService userService)
+    public UserView(IUserService userService, IServiceProvider serviceProvider)
     {
         InitializeComponent();
 
         _userService = userService;
+        _serviceProvider = serviceProvider;
         _sc = new UserSC();
 
         cmbPageSize.SelectedIndex = 0;
@@ -51,17 +58,45 @@ public partial class UserView : UserControl
 
     private void AddUserButton_Click(object sender, RoutedEventArgs e)
     {
-
+        var window = _serviceProvider.GetRequiredService<AddUserWindow>();
+        window.OnSubmit += (s, e) =>
+        {
+            Search(_sc);
+        };
+        window.ShowDialog();
     }
 
     private void EditUserButton_Click(object sender, RoutedEventArgs e)
     {
+        var button = sender as Button;
+        var selectedItem = button?.CommandParameter as UserDto;
 
+        var window = _serviceProvider.GetRequiredService<EditUserWindow>();
+        window.User = selectedItem;
+        window.OnSubmit += (s, e) =>
+        {
+            Search(_sc);
+        };
+
+        window.ShowDialog();
     }
 
-    private void DeleteUserButton_Click(object sender, RoutedEventArgs e)
+    private async void DeleteUserButton_Click(object sender, RoutedEventArgs e)
     {
+        var button = sender as Button;
+        var selectedItem = button?.CommandParameter as UserDto;
 
+        if (selectedItem == null) return;
+
+        var result = MessageBoxHelper.ShowYesNo("Are you sure?");
+        if (result != MessageBoxResult.Yes) return;
+
+        await _userService.DeleteAsync(selectedItem.Id);
+        await _userService.SaveChangesAsync();
+
+        Search(_sc);
+
+        MessageBoxHelper.ShowInfo($"{selectedItem.Username} succesfully deleted!");
     }
 
     private void PrevButton_Click(object sender, RoutedEventArgs e)

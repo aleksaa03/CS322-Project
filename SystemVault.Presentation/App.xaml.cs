@@ -11,6 +11,7 @@ using SystemVault.Presentation.Views;
 using SystemVault.Presentation.Views.UserControls;
 using SystemVault.Presentation.Views.Windows.Category;
 using SystemVault.Presentation.Views.Windows.ServiceFile;
+using SystemVault.Presentation.Views.Windows.User;
 
 namespace SystemVault.Presentation;
 
@@ -71,6 +72,8 @@ public partial class App : Application
         serviceCollection.AddTransient(typeof(AddCategoryWindow));
 
         serviceCollection.AddTransient(typeof(UserView));
+        serviceCollection.AddTransient(typeof(AddUserWindow));
+        serviceCollection.AddTransient(typeof(EditUserWindow));
     }
 
     private void RegisterExceptionHandler()
