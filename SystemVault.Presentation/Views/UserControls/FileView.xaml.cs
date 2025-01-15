@@ -110,8 +110,12 @@ public partial class FileView : UserControl
         var button = sender as Button;
         var selectedFile = button?.CommandParameter as ServiceFileDto;
 
-        var addFileWindow = _serviceProvider.GetRequiredService<AddFileWindow>();
-        addFileWindow.DataContext = selectedFile;
+        var addFileWindow = _serviceProvider.GetRequiredService<EditFileWindow>();
+        addFileWindow.ServiceFile = selectedFile;
+        addFileWindow.OnSubmit += (s, e) =>
+        {
+            Search(_serviceFileSC);
+        };
 
         addFileWindow.ShowDialog();
     }
@@ -126,6 +130,11 @@ public partial class FileView : UserControl
         var result = MessageBoxHelper.ShowYesNo("Are you sure?");
 
         if (result != MessageBoxResult.Yes) return;
+
+        if (File.Exists(selectedFile.Path))
+        {
+            File.Delete(selectedFile.Path);
+        }
 
         await _serviceFileService.DeleteAsync(selectedFile.Id);
         await _serviceFileService.SaveChangesAsync();
@@ -164,36 +173,3 @@ public partial class FileView : UserControl
         }
     }
 }
-
-/*public static class AuthorizationHelper
-{
-    public static readonly DependencyProperty RequiresAuthorizationProperty =
-        DependencyProperty.RegisterAttached(
-            "RequiresAuthorization",
-            typeof(bool),
-            typeof(AuthorizationHelper),
-            new PropertyMetadata(false, OnRequiresAuthorizationChanged));
-
-    public static void SetRequiresAuthorization(DependencyObject obj, bool value) =>
-        obj.SetValue(RequiresAuthorizationProperty, value);
-
-    public static bool GetRequiresAuthorization(DependencyObject obj) =>
-        (bool)obj.GetValue(RequiresAuthorizationProperty);
-
-    private static void OnRequiresAuthorizationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        if (e.NewValue is true)
-        {
-            // Add authorization logic here
-            if (!IsUserAuthorized())
-            {
-                
-                throw new UnauthorizedAccessException("User is not authorized to view this control.");
-            }
-        }
-    }
-    private static bool IsUserAuthorized()
-    {
-        return false;
-    }
-}*/

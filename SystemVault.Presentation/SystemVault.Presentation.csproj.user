@@ -25,10 +25,16 @@
     <Compile Update="Views\Windows\ServiceFile\AddFileWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Windows\ServiceFile\EditFileWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Windows\User\AddUserWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Windows\User\EditUserWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\User\ResetPasswordWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -60,10 +66,16 @@
     <Page Update="Views\Windows\ServiceFile\AddFileWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Windows\ServiceFile\EditFileWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Windows\User\AddUserWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Windows\User\EditUserWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\User\ResetPasswordWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

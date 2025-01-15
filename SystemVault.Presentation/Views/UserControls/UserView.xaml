@@ -81,7 +81,14 @@
                     <DataGridTemplateColumn Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Delete" Click="DeleteUserButton_Click" Height="30" Width="Auto" CommandParameter="{Binding}" Style="{StaticResource MainButtonStyle}" />
+                                <Button Content="Reset password" Click="ResetUserPasswordButton_Click" Height="30" Width="Auto" CommandParameter="{Binding}" Style="{StaticResource MainButtonStyle}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" Click="DeleteUserButton_Click" Height="30" Width="Auto" CommandParameter="{Binding}" Style="{StaticResource CancelButtonStyle}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

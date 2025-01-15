@@ -58,8 +58,6 @@ public partial class App : Application
             });
         });
 
-        serviceCollection.AddSingleton(Configuration);
-
         ServiceContainer.RegisterServices(serviceCollection);
 
         serviceCollection.AddTransient(typeof(MainWindow));
@@ -67,6 +65,7 @@ public partial class App : Application
 
         serviceCollection.AddTransient(typeof(FileView));
         serviceCollection.AddTransient(typeof(AddFileWindow));
+        serviceCollection.AddTransient(typeof(EditFileWindow));
 
         serviceCollection.AddTransient(typeof(CategoryView));
         serviceCollection.AddTransient(typeof(AddCategoryWindow));
@@ -74,6 +73,7 @@ public partial class App : Application
         serviceCollection.AddTransient(typeof(UserView));
         serviceCollection.AddTransient(typeof(AddUserWindow));
         serviceCollection.AddTransient(typeof(EditUserWindow));
+        serviceCollection.AddTransient(typeof(ResetPasswordWindow));
     }
 
     private void RegisterExceptionHandler()

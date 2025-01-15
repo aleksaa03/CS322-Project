@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Controls;
+using SystemVault.BLL.Common;
 using SystemVault.BLL.DTOs;
 using SystemVault.BLL.Interfaces;
 using SystemVault.DAL.Common;
@@ -81,12 +82,28 @@ public partial class UserView : UserControl
         window.ShowDialog();
     }
 
+    private void ResetUserPasswordButton_Click(object sender, RoutedEventArgs e)
+    {
+        var button = sender as Button;
+        var selectedItem = button?.CommandParameter as UserDto;
+
+        var window = _serviceProvider.GetRequiredService<ResetPasswordWindow>();
+        window.User = selectedItem;
+
+        window.ShowDialog();
+    }
+
     private async void DeleteUserButton_Click(object sender, RoutedEventArgs e)
     {
         var button = sender as Button;
         var selectedItem = button?.CommandParameter as UserDto;
 
         if (selectedItem == null) return;
+
+        if (selectedItem.Id == UserSession.CurrentUser?.Id)
+        {
+            throw new Exception("Can't delete current user.");
+        }
 
         var result = MessageBoxHelper.ShowYesNo("Are you sure?");
         if (result != MessageBoxResult.Yes) return;

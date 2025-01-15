@@ -1,11 +1,11 @@
-﻿<Window x:Class="SystemVault.Presentation.Views.Windows.ServiceFile.AddFileWindow"
+﻿<Window x:Class="SystemVault.Presentation.Views.Windows.ServiceFile.EditFileWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SystemVault.Presentation.Views.Windows.ServiceFile"
         mc:Ignorable="d"
-        Title="AddFileWindow" Height="350" Width="400" WindowStartupLocation="CenterScreen">
+        Title="EditFileWindow" Height="300" Width="400" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -23,39 +23,27 @@
 
             <StackPanel Grid.Row="0" HorizontalAlignment="Stretch">
                 <Label Padding="0">Filename</Label>
-                <TextBox Name="txbName" Height="25" VerticalContentAlignment="Center" Style="{StaticResource MainTextBoxStyle}" />
+                <TextBox Name="txbName" Height="25" VerticalContentAlignment="Center" Text="{Binding Name}" Style="{StaticResource MainTextBoxStyle}" />
             </StackPanel>
 
-            <StackPanel Grid.Row="1">
-                <Label Padding="0">Destination path</Label>
+            <StackPanel Grid.Row="1" HorizontalAlignment="Stretch">
+                <Label Padding="0">Filepath</Label>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="txbDestinationPath" IsReadOnly="True" Grid.Column="0" Height="25" VerticalContentAlignment="Center" Style="{StaticResource MainTextBoxStyle}" />
-                    <Button Content="Browse..." Grid.Column="1" Margin="2,0,0,0" Style="{StaticResource MainButtonStyle}" Click="BrowsePathButton_Click" />
-                </Grid>
-            </StackPanel>
-
-            <StackPanel Grid.Row="2" HorizontalAlignment="Stretch">
-                <Label Padding="0">Source file</Label>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="txbSourceFile" IsReadOnly="True" Grid.Column="0" Height="25" VerticalContentAlignment="Center" Style="{StaticResource MainTextBoxStyle}" />
+                    <TextBox x:Name="txbFilepath" IsReadOnly="True" Grid.Column="0" Height="25" Text="{Binding Path}" VerticalContentAlignment="Center" Style="{StaticResource MainTextBoxStyle}" />
                     <Button Content="Browse..." Grid.Column="1" Margin="2,0,0,0" Style="{StaticResource MainButtonStyle}" Click="BrowseFileButton_Click" />
                 </Grid>
             </StackPanel>
 
-            <StackPanel Grid.Row="3" HorizontalAlignment="Stretch">
+            <StackPanel Grid.Row="2" HorizontalAlignment="Stretch">
                 <Label Padding="0">Size (bytes)</Label>
-                <TextBox x:Name="txbSize" IsReadOnly="True" Height="25" VerticalContentAlignment="Center" Style="{StaticResource MainTextBoxStyle}" />
+                <TextBox x:Name="txbSize" IsReadOnly="True" Height="25" VerticalContentAlignment="Center" Text="{Binding Size}" Style="{StaticResource MainTextBoxStyle}" />
             </StackPanel>
 
-            <StackPanel Grid.Row="4" HorizontalAlignment="Stretch">
+            <StackPanel Grid.Row="3" HorizontalAlignment="Stretch">
                 <Label Padding="0">Category</Label>
                 <ComboBox x:Name="cmbCategoryId" Height="25" VerticalContentAlignment="Center" SelectedValuePath="Value" DisplayMemberPath="Key" Loaded="CategoryComboBox_Loaded"></ComboBox>
             </StackPanel>

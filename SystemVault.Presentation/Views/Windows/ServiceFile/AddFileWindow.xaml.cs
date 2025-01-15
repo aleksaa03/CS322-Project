@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,22 +14,20 @@ public partial class AddFileWindow : Window
     private readonly IServiceFileService _serviceFileService;
     private readonly ICategoryService _categoryService;
     private readonly ICryptoService _cryptoService;
-    private IConfiguration _configuration { get; set; }
 
     public event EventHandler? OnSubmit;
 
-    public AddFileWindow(IServiceFileService serviceFileService, ICategoryService categoryService, ICryptoService cryptoService, IConfiguration configuration)
+    public AddFileWindow(IServiceFileService serviceFileService, ICategoryService categoryService, ICryptoService cryptoService)
     {
         InitializeComponent();
         _serviceFileService = serviceFileService;
         _categoryService = categoryService;
         _cryptoService = cryptoService;
-        _configuration = configuration;
     }
 
     private async void SaveButton_Click(object sender, RoutedEventArgs e)
     {
-        string? dirDestinationPath = _configuration.GetSection("VaultLocation").Value;
+        string dirDestinationPath = txbDestinationPath.Text;
 
         if (string.IsNullOrEmpty(dirDestinationPath))
         {
@@ -85,6 +82,16 @@ public partial class AddFileWindow : Window
 
             var fileInfo = new FileInfo(openFileDialog.FileName);
             txbSize.Text = fileInfo.Length.ToString();
+        }
+    }
+
+    private void BrowsePathButton_Click(object sender, RoutedEventArgs e)
+    {
+        var openFolderDialog = new OpenFolderDialog();
+
+        if (openFolderDialog.ShowDialog() == true)
+        {
+            txbDestinationPath.Text = openFolderDialog.FolderName;
         }
     }
 
