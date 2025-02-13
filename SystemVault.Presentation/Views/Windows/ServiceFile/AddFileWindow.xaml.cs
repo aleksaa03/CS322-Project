@@ -27,6 +27,7 @@ public partial class AddFileWindow : Window
 
     private async void SaveButton_Click(object sender, RoutedEventArgs e)
     {
+        string name = txbName.Text;
         string dirDestinationPath = txbDestinationPath.Text;
 
         if (string.IsNullOrEmpty(dirDestinationPath))
@@ -34,7 +35,15 @@ public partial class AddFileWindow : Window
             throw new Exception("Vault location is not defined.");
         }
 
-        string name = txbName.Text;
+        if (string.IsNullOrEmpty(name)) 
+        {
+            throw new Exception("Name is not defined.");
+        }
+
+        if (cmbCategoryId.SelectedItem == null)
+        {
+            throw new Exception("Category is not defined.");
+        }
         
         int categoryId = Convert.ToInt32(((KeyValuePair<string, string>)cmbCategoryId.SelectedItem).Value);
 

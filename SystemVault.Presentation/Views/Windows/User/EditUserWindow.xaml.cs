@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using SystemVault.BLL.Common;
 using SystemVault.BLL.DTOs;
 using SystemVault.BLL.Interfaces;
 using SystemVault.DAL.Common;
@@ -32,12 +33,18 @@ public partial class EditUserWindow : Window
     private async void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         string username = txbUsername.Text;
-        var roleId = (UserRole?)Convert.ToInt32(((KeyValuePair<string, string>)cmbUserRole.SelectedItem).Value);
 
-        if (string.IsNullOrEmpty(username) || roleId == null)
+        if (string.IsNullOrEmpty(username))
         {
-            return;
+            throw new Exception("Name is not defined.");
         }
+
+        if (cmbUserRole.SelectedItem == null)
+        {
+            throw new Exception("User role is not defined.");
+        }
+
+        var roleId = (UserRole?)Convert.ToInt32(((KeyValuePair<string, string>)cmbUserRole.SelectedItem).Value);
 
         var selectedUser = await _userService.GetByIdAsync(User!.Id);
 
@@ -66,13 +73,15 @@ public partial class EditUserWindow : Window
 
         var list = Enum.GetValues(typeof(UserRole))
             .Cast<UserRole>()
-            .Select(x => new KeyValuePair<string, string>(x.ToString(), ((int)x).ToString()));
+            .Select(x => new KeyValuePair<string, string>(x.ToString(), ((int)x).ToString()))
+            .ToList();
 
-        comboBox?.Items.Clear();
+        comboBox.ItemsSource = list;
+        comboBox.SelectedIndex = list.FindIndex(x => x.Key == User?.RoleId.ToString());
 
-        foreach (var item in list)
+        if (User?.Id == UserSession.CurrentUser?.Id)
         {
-            comboBox?.Items.Add(item);
+            comboBox.IsEnabled = false;
         }
     }
 }

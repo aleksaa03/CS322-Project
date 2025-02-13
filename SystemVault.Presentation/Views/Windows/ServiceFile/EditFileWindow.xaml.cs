@@ -35,6 +35,17 @@ public partial class EditFileWindow : Window
     private async void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         string name = txbName.Text;
+
+        if (string.IsNullOrEmpty(name))
+        {
+            throw new Exception("Name is not defined.");
+        }
+
+        if (cmbCategoryId.SelectedItem == null)
+        {
+            throw new Exception("Category is not defined.");
+        }
+
         int categoryId = Convert.ToInt32(((KeyValuePair<string, string>)cmbCategoryId.SelectedItem).Value);
 
         var selectedFile = await _serviceFileService.GetByIdAsync(ServiceFile!.Id);
@@ -45,6 +56,13 @@ public partial class EditFileWindow : Window
         {
             File.Move(ServiceFile!.Path, txbFilepath.Text);
             selectedFile.Path = txbFilepath.Text;
+        }
+
+        if (selectedFile.Name != name)
+        {
+            string newFilePath = Path.Combine(Path.GetDirectoryName(ServiceFile!.Path)!, name + Path.GetExtension(ServiceFile!.Path));
+            File.Move(ServiceFile!.Path, newFilePath);
+            selectedFile.Path = newFilePath;
         }
 
         selectedFile.Name = name;
@@ -88,11 +106,13 @@ public partial class EditFileWindow : Window
             return;
         }
 
-        var categories = _categoryService.GetAll();
+        var categories = _categoryService.GetAll().ToList();
 
         foreach (var item in categories)
         {
             comboBox.Items.Add(new KeyValuePair<string, string>(item.Name, item.Id.ToString()));
         }
+
+        comboBox.SelectedIndex = categories.FindIndex(x => x.Id == ServiceFile?.CategoryId);
     }
 }

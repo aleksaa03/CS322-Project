@@ -25,12 +25,23 @@ public partial class AddUserWindow : Window
     {
         string username = txbUsername.Text;
         string password = pwbPassword.Password;
-        var roleId = (UserRole?)Convert.ToInt32(((KeyValuePair<string, string>)cmbUserRole.SelectedItem).Value);
 
-        if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || roleId == null)
+        if (string.IsNullOrEmpty(username)) 
         {
-            return;
+            throw new Exception("Name is not defined.");
         }
+
+        if (string.IsNullOrEmpty(password))
+        {
+            throw new Exception("Password is not defined.");
+        }
+
+        if (cmbUserRole.SelectedItem == null)
+        {
+            throw new Exception("User role is not defined.");
+        }
+
+        var roleId = (UserRole?)Convert.ToInt32(((KeyValuePair<string, string>)cmbUserRole.SelectedItem).Value);
 
         var user = new UserDto
         {

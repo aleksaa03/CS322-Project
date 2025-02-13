@@ -10,11 +10,13 @@ namespace SystemVault.BLL.Services;
 public class UserService : GenericService<User, UserDto, IUserRepository>, IUserService
 {
     private readonly IUserRepository _userRepository;
+    private readonly ICryptoService _cryptoService;
     private readonly IMapper _mapper;
 
-    public UserService(IUserRepository userRepository, IMapper mapper) : base(userRepository, mapper)
+    public UserService(IUserRepository userRepository, ICryptoService cryptoService, IMapper mapper) : base(userRepository, mapper)
     {
         _userRepository = userRepository;
+        _cryptoService = cryptoService;
         _mapper = mapper;
     }
 
@@ -28,7 +30,7 @@ public class UserService : GenericService<User, UserDto, IUserRepository>, IUser
     {
         var user = await _userRepository.GetByUsernameAsync(username);
 
-        if (user == null || user.Password != password) 
+        if (user == null || _cryptoService.VerifyPassword(password, user.Password)) 
         {
             throw new Exception("User don't exist in the system.");
         }

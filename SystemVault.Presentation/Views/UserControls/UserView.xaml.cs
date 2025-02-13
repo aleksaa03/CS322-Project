@@ -44,7 +44,7 @@ public partial class UserView : UserControl
     private void SearchButton_Click(object sender, RoutedEventArgs e)
     {
         _sc.Username = txbUsername.Text;
-        _sc.RoleId = (UserRole)Convert.ToInt32(((KeyValuePair<string, string>)cmbUserRole.SelectedItem).Value);
+        _sc.RoleId = cmbUserRole.SelectedItem != null ? (UserRole)Convert.ToInt32(((KeyValuePair<string, string>)cmbUserRole.SelectedItem).Value) : null;
         Search(_sc);
     }
 
