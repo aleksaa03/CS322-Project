@@ -25,18 +25,26 @@ public partial class MainWindow : Window
         _userService = userService;
         _cryptoService = cryptoService;
 
-        /*var user = new UserDto
-        {
-            Username = "admin",
-            Password = _cryptoService.HashPassword("test123"),
-            RoleId = UserRole.Admin
-        };
+        //var admin = new UserDto
+        //{
+        //    Username = "admin",
+        //    Password = _cryptoService.HashPassword("test123"),
+        //    RoleId = UserRole.Admin
+        //};
 
-        Task.Run(async () =>
-        {
-            await _userService.CreateAsync(user);
-            await _userService.SaveChangesAsync();
-        });*/
+        //var user = new UserDto
+        //{
+        //    Username = "client",
+        //    Password = _cryptoService.HashPassword("test321"),
+        //    RoleId = UserRole.Operator
+        //};
+
+        //Task.Run(async () =>
+        //{
+        //    await _userService.CreateAsync(admin);
+        //    await _userService.CreateAsync(user);
+        //    await _userService.SaveChangesAsync();
+        //});
 
         UserSessonChangedEvent.UserSessionChanged += (s, e) =>
         {

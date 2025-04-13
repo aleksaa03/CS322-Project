@@ -28,11 +28,12 @@ public class UserService : GenericService<User, UserDto, IUserRepository>, IUser
 
     public async Task<UserDto?> LoginUserAsync(string username, string password)
     {
-        var user = await _userRepository.GetByUsernameAsync(username);
+        var user = await _userRepository.GetByUsernameAsync(username) 
+            ?? throw new Exception("User don't exist in the system.");
 
-        if (user == null || _cryptoService.VerifyPassword(password, user.Password)) 
+        if (!_cryptoService.VerifyPassword(password, user.Password))
         {
-            throw new Exception("User don't exist in the system.");
+            throw new Exception("Invalid credentials.");
         }
 
         return _mapper.Map<UserDto?>(user);

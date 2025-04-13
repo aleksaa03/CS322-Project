@@ -51,35 +51,11 @@ public class CryptoService : ICryptoService
 
     public string HashPassword(string password)
     {
-        string saltedPassword = password + GenerateSalt();
-
-        byte[] bytes = Encoding.UTF8.GetBytes(saltedPassword);
-        byte[] hash = SHA256.HashData(bytes);
-
-        var result = new StringBuilder();
-
-        for (int i = 0; i < hash.Length; i++)
-        {
-            result.Append(hash[i].ToString("x2"));
-        }
-
-        return result.ToString();
+        return BCrypt.Net.BCrypt.EnhancedHashPassword(password);
     }
 
     public bool VerifyPassword(string password, string hashedPassword)
     {
-        return hashedPassword == HashPassword(password);
-    }
-
-    private string GenerateSalt()
-    {
-        var rng = RandomNumberGenerator.Create();
-        byte[] buffer = new byte[1024];
-
-        rng.GetBytes(buffer);
-
-        string salt = BitConverter.ToString(buffer);
-
-        return salt;
+        return BCrypt.Net.BCrypt.EnhancedVerify(password, hashedPassword);
     }
 }

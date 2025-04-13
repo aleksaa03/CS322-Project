@@ -151,7 +151,7 @@ public partial class FileView : UserControl
 
         if (selectedFile == null) return;
 
-        var outputFilename = Path.GetFileName(selectedFile.Path);
+        var outputFilename = Path.GetFileNameWithoutExtension(selectedFile.Path) + "_decrypted.txt";
         var desktopPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), outputFilename);
 
         _cryptoService.DecryptFile(selectedFile.Path, desktopPath, AppSettings.EncryptionKey);
