@@ -80,7 +80,3 @@ VALUES
 ('Backup file 48', 'D:\\Logs', 48000, '2025-01-05 18:25:00', 1),
 ('Backup file 49', 'E:\\Logs', 49000, '2025-01-05 18:30:00', 1),
 ('Backup file 50', 'C:\\Logs', 50000, '2025-01-05 18:35:00', 1);
-
-INSERT INTO USER (Username, Password, RoleId)
-VALUES ('admin', 'test123', 0),
-       ('operator', 'test123', 1);

@@ -36,7 +36,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Margin="10">
-                    <Label Padding="0">Category</Label>
+                    <Label Padding="0">User role</Label>
                     <ComboBox x:Name="cmbUserRole" Height="25" VerticalContentAlignment="Center" SelectedValuePath="Value" DisplayMemberPath="Key"></ComboBox>
                 </StackPanel>
 

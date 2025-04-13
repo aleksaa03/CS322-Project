@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SystemVault.Presentation.Views.Windows.Category"
         mc:Ignorable="d"
-        Title="AddCategoryWindow" Height="150" Width="250" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="Add/Edit category" Height="150" Width="250" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
