@@ -6,24 +6,19 @@ using SystemVault.BLL.Interfaces;
 using SystemVault.Presentation.Views.UserControls;
 using SystemVault.DAL.Common;
 using SystemVault.BLL.Common;
-using SystemVault.BLL.DTOs;
 
 namespace SystemVault.Presentation.Views;
 
 public partial class MainWindow : Window
 {
     private readonly IServiceProvider _serviceProvider;
-    private readonly IRegistryService _registryService;
     private readonly IUserService _userService;
-    private readonly ICryptoService _cryptoService;
 
-    public MainWindow(IServiceProvider serviceProvider, IRegistryService registryService, IUserService userService, ICryptoService cryptoService)
+    public MainWindow(IServiceProvider serviceProvider, IUserService userService, ICryptoService cryptoService)
     {
         InitializeComponent();
         _serviceProvider = serviceProvider;
-        _registryService = registryService;
         _userService = userService;
-        _cryptoService = cryptoService;
 
         //var admin = new UserDto
         //{
