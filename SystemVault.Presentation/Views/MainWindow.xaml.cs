@@ -80,25 +80,6 @@ public partial class MainWindow : Window
         UserSessonChangedEvent.OnUserSessionChanged(false);
     }
 
-    private string GenerateKey()
-    {
-        string key = Guid.NewGuid().ToString().Replace("-", "");
-        return key;
-        /*int length = guid.Length;
-
-        string firstHalf = guid.Substring(0, length / 2);
-        string secondHalf = guid.Substring(length / 2);
-
-        string test = "";
-
-        for (int i = 1; i < guid.Length; i += 2)
-        {
-            test += guid[i].ToString() + guid[i - 1].ToString();
-        }
-
-        return secondHalf + firstHalf;*/
-    }
-
     private void FileMenuItem_Click(object sender, RoutedEventArgs e)
     {
         if (!UserSession.IsUserLoggedIn())
